@@ -112,6 +112,9 @@ public class CentralCollector implements Collector {
             ConfigService configService) throws Exception {
 
         String agentId = properties.get("glowroot.agent.id");
+        if(agentId==null) {
+            agentId = System.getenv("DOT_GLOWROOT_AGENT_ID");
+        }
         if (agentId == null) {
             agentId = escapeHostname(InetAddress.getLocalHost().getHostName());
         } else if (agentId.endsWith("::")) {
