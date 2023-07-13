@@ -274,6 +274,13 @@ public class MainEntryPoint {
             Map<String, String> properties, @Nullable Instrumentation instrumentation)
             throws Exception {
         String collectorAddress = properties.get("glowroot.collector.address");
+        if(collectorAddress == null){
+            collectorAddress = System.getenv("DOT_GLOWROOT_COLLECTOR_ADDRESS");
+        }
+
+
+
+
         Class<? extends Collector> customCollectorClass =
                 loadCustomCollectorClass(directories.getGlowrootDir());
         Constructor<? extends Collector> collectorProxyConstructor = null;

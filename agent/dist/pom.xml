@@ -200,18 +200,6 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.glowroot</groupId>
-        <artifactId>glowroot-agent-dist-maven-plugin</artifactId>
-        <version>${project.version}</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>generate</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <artifactId>maven-shade-plugin</artifactId>
         <configuration>
           <dependencyReducedPomLocation>
