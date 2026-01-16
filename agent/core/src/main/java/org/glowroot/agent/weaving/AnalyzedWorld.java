@@ -15,6 +15,7 @@
  */
 package org.glowroot.agent.weaving;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -291,7 +292,15 @@ public class AnalyzedWorld {
             // org.codehaus.groovy.runtime.callsite.CallSiteClassLoader
             return createAnalyzedClassPlanB(className, loader);
         }
-        byte[] bytes = Resources.toByteArray(url);
+        byte[] bytes;
+        try {
+            bytes = Resources.toByteArray(url);
+        } catch (FileNotFoundException e) {
+            // this can happen with multi-release JARs or when the URL points to a JAR entry
+            // that doesn't actually exist (e.g., dynamically generated classes)
+            logger.debug("could not read class bytes from url {}: {}", url, e.getMessage());
+            return createAnalyzedClassPlanB(className, loader);
+        }
         List<Advice> advisors =
                 mergeInstrumentationAnnotations(this.advisors.get(), bytes, loader, className);
         ThinClassVisitor accv = new ThinClassVisitor();

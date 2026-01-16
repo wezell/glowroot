@@ -5,7 +5,7 @@
 
   <groupId>org.glowroot</groupId>
   <artifactId>glowroot-parent</artifactId>
-  <version>0.14.5-beta.3-SNAPSHOT</version>
+  <version>0.14.5-beta.3-java25</version>
   <packaging>pom</packaging>
 
   <name>Glowroot Parent Project</name>
@@ -285,10 +285,11 @@
   </dependencyManagement>
 
   <distributionManagement>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
+    <repository>
+        <id>dotcmsMvn</id>
+        <name>will.ezell</name>
+        <url>https://repo.dotcms.com/artifactory/libs-release-local</url>
+    </repository>
   </distributionManagement>
 
   <build>
@@ -322,16 +323,6 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>1.6.14</version>
-        <extensions>true</extensions>
-        <configuration>
-          <serverId>ossrh</serverId>
-          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-        </configuration>
       </plugin>
     </plugins>
     <pluginManagement>
